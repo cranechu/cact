@@ -1,0 +1,199 @@
+CACT is a computer assistant for Chinese tuition.
+
+* Requirments
+** database
+*** materials
+**** character, word, pinyin, explain, chengyu
+- [ ] similar words
+- [ ] misleading words, wrong words
+**** stroke, pronouncation, picture
+**** connections between words
+**** sentences from sina.com and local papers, real quiz paper
+**** questions and answers
+- [ ] reading
+- [ ] picture
+- [ ] writing
+- [ ] keyboard
+*** informations
+**** contact: student, parents, teacher, supervisor
+- [ ] race
+- [ ] target
+- [ ] interest
+**** log: whatsapp messages, online test
+** interactive
+*** telegram for end user: students and their parenets
+- [ ] throughput: 10 IOPS
+- [ ] latency: 1-3 seconds
+*** web for teachers and supervisors
+*** web for google and AD.
+** usage model
+*** collect articles from websites
+*** collect character/word/sentences from articles
+*** new student/parents
+*** online exam
+*** schedule for teachers and parents
+*** send new sentences from telegram
+** data model
+*** material
+- website: url base, url index, nationality
+- article: keywords, website, title, author, date
+- sentence: article, next sentence, score
+- wordchar: sentences, next word(occurance), pinyin, writing, explanation items, simiar wordchars, opposite wordchars, pictures
+*** people
+- school: name, is tuition
+- grade: school, name
+- class: grade, name, headcount
+- teacher: name, phone, id, school
+- parent: name, phone
+- student: teachers, parents, phone
+- relationship: student, student, friend or ...
+- progress: student, wordchar, total times, correct times, date
+*** event
+- exam: date
+- tuition cless: data, student, teacher
+- chat history: student, from, message, reply
+
+
+* Tools
+** SQLite for database
+- sqlite-web: sqlite_web database/material.sqlite --host 0.0.0.0 --port 8080 --no-browser
+- bottle-sqlite: automatically connects/closes to a database
+- peewee, bottle-peewee
+- peewee-asyncio, switch to postgresql when data grows to huge
+- put hot data in memory, to avoid EBS 3K IOPS limitation.
+** telepot for telegram bot
+- p async_demo.py token
+- also use whatsapp as lite version
+- facebook messenger platform
+- webhook
+** bottle for web UI
+** pytg/telegram-cli for system test
+- telegram-cli
+** py.test, coverage.py for unittest
+** network
+- sudo nethogs
+
+
+* TODOs
+- [ ] add silence in pronounciation model
+
+
+* Environment
+** yum install
+python-tools
+cowboxer
+python34
+wget
+libjpeg-devel
+python3-2to3
+tesseract-devel
+links
+bash-completion
+tree
+fonts-chinese
+scl-utils
+pip3
+libpango
+libcairo2-devel
+emacs-nox
+zlib-devel
+protobuf-python
+tesseract
+python_dev
+sqlite
+unzip
+nano
+g++
+golang
+mlocate
+libjpeg
+fonts-chinese.noarch
+libpango1.0-devel
+libpango-devel
+ncurses-devel
+python-imaging
+telegram-cli
+libcairo2
+libcairo
+git
+telegram
+pillow
+python34_devel
+libicu-devel
+tmux
+python_devel
+protobuf
+curl
+pip
+lsof
+sqlite-web
+python3-tools
+mywebsql
+jpeg-devel
+ipython
+openjpeg
+python-pip
+net-tools
+epel-release
+gcc
+ntpdate
+
+** pip3 install
+sqlite-web
+bottle
+aioTelegramBot
+telepot
+pytg
+beautifulsoup4
+pytest
+peewee
+bottle-peewee
+coverage
+pytest-coverage
+yowsup2
+webpy
+utils
+db
+db3
+jsondb
+ipython
+bottle-sqlite
+jpeg
+Pillow
+protobuf
+nltk
+numpy
+jieba
+sqlite-web
+
+** freebsd on EC2, t2.nano (!!stick on CentOS if no strong reason for freebsd!!)
+- 512M memory
+- 8G storage
+- try aliyun
+
+
+* Process
+- rm database/*
+- p material_build.py
+- p material_pinyin.py
+- backup the database
+- p material_wordchar.py
+- repeat last step till all data collected
+
+
+TODO:
+- database
+  - [X] convert mp3 to ogg, slice, save in db
+  - [X] convert type2 pinyin to type1 pinyin
+  - [X] get writing gif
+  - [X] get pictures for wordchars
+  - [X] image and writing: save as files
+  - [X] compress gif/ogg/picture, vacuum, backup
+  - [X] ban <= ban1
+- send by telegram
+  - [X] basic explain, pinyin, english
+  - [X] writing gif
+  - [X] picture
+  - [X] pronouciation
+  - [X] full list of explanation
+- review/edit databasee
