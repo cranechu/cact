@@ -1,6 +1,6 @@
 # cact
 
-A telegram bot, providing Chinese character explaination, pronounciation, and writing. 
+A telegram bot, providing Chinese character explaination, pronounciation, and writing.
 
 pip3 install telepot
 
